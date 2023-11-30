@@ -47,3 +47,8 @@ class Maze:
     @staticmethod
     def _get_cell(char: str) -> Cell:
         return Maze._cell_map[char]()
+
+
+    def can_move(self, position: tuple[int, int]) -> bool:
+        row, col = position
+        return self.cells[row][col] != Wall()

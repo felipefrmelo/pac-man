@@ -2,6 +2,8 @@
 from typing import Protocol
 from enum import Enum, auto
 
+from pacman.models.maze import Maze
+
 
 class Direction(Enum):
     RIGHT = auto()
@@ -18,14 +20,18 @@ class Subscriber(Protocol):
 
 class PacMan(Subscriber):
 
-    def __init__(self, position: tuple[int, int]) -> None:
+    def __init__(self, position: tuple[int, int], maze: Maze) -> None:
         self.position = position
         self.lives = 3
         self.direction = Direction.RIGHT
+        self.maze = maze
 
     def move(self):
 
-        self._moves[self.direction]()
+        new_position = self._moves[self.direction]()
+
+        if self.maze.can_move(new_position):
+            self.position = new_position
 
     @property
     def _moves(self):
@@ -38,19 +44,19 @@ class PacMan(Subscriber):
 
     def move_right(self):
         row, col = self.position
-        self.position = (row, col + 1)
+        return (row, col + 1)
 
     def move_left(self):
         row, col = self.position
-        self.position = (row, col - 1)
+        return (row, col - 1)
 
     def move_up(self):
         row, col = self.position
-        self.position = (row - 1, col)
+        return (row - 1, col)
 
     def move_down(self):
         row, col = self.position
-        self.position = (row + 1, col)
+        return (row + 1, col)
 
     def update(self, direction: Direction):
         self.direction = direction

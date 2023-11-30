@@ -6,7 +6,14 @@ from pacman.models.maze import Maze
 @pytest.fixture
 def pac_man():
 
-    return PacMan((1, 1))
+    maze = Maze.from_str("""
+    ......
+    ......
+    ......
+    ......
+    ......
+    """)
+    return PacMan((1, 1), maze)
 
 
 def test_init_pacman(pac_man: PacMan):
@@ -51,14 +58,15 @@ def test_pacman_move(pac_man: PacMan, direction: Direction, expected_position):
 
     assert pac_man.position == expected_position
 
-@pytest.mark.skip
-def test_pacman_does_not_move_to_wall(pac_man: PacMan):
+
+def test_pacman_does_not_move_to_wall():
+    maze = Maze.from_str("""
+                     www
+                     w.w
+                     www
+                """)
+    pac_man = PacMan((1, 1), maze)
 
     pac_man.move()
-    pac_man.move()
-    pac_man.move()
 
-    assert pac_man.position == (1, 3)
-    
-
-
+    assert pac_man.position == (1, 1)
