@@ -1,6 +1,7 @@
 import pytest
 from pacman.models.pacman import Direction, PacMan
 from pacman.models.maze import Maze
+from pacman.models.position import Position
 
 
 @pytest.fixture
@@ -20,18 +21,20 @@ def test_init_pacman(pac_man: PacMan):
 
     assert pac_man.lives == 3
     assert pac_man.direction == Direction.RIGHT
-    assert pac_man.position == (1, 1)
+    assert pac_man.position == Position(1, 1)
 
 
 def test_pacman_move_right(pac_man: PacMan):
 
-    pac_man.move()
-
-    assert pac_man.position == (1, 2)
+    initial_position = pac_man.position
 
     pac_man.move()
 
-    assert pac_man.position == (1, 3)
+    assert pac_man.position == initial_position.right
+
+    pac_man.move()
+
+    assert pac_man.position == initial_position.right.right
 
 
 @pytest.mark.parametrize('direction', [
@@ -56,7 +59,7 @@ def test_pacman_move(pac_man: PacMan, direction: Direction, expected_position):
 
     pac_man.move()
 
-    assert pac_man.position == expected_position
+    assert pac_man.position == Position(*expected_position)
 
 
 def test_pacman_does_not_move_to_wall():
@@ -69,4 +72,4 @@ def test_pacman_does_not_move_to_wall():
 
     pac_man.move()
 
-    assert pac_man.position == (1, 1)
+    assert pac_man.position == Position(1, 1)

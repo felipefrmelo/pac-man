@@ -1,7 +1,7 @@
 from pacman.models.maze import Maze, Wall, Fruit, Empty
 
 
-def assertIs(cell, position, maze):
+def assertIs(cell, position, maze: Maze):
     assert isinstance(maze.cells[position[0]][position[1]], cell), f"Expected {
         cell} at {position}, got {maze.cells[position[0]][position[1]]}"
 
@@ -93,4 +93,3 @@ def test_a_complex_maze():
     assertIs(Empty, (0, 5), maze)
     assertIs(Fruit, (1, 3), maze)
     assertIs(Wall, (2, 4), maze)
-

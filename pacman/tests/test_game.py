@@ -4,13 +4,13 @@ from pacman.models.pacman import PacMan
 
 def test_init_game():
 
-    maze = Maze([['wall', 'wall', 'wall', 'wall'],
-                ['wall', 'empty', 'empty', 'wall'],
-                ['wall', 'empty', 'empty', 'wall'],
-                ['wall', 'wall', 'wall', 'wall']
-                 ])
+    maze = Maze.from_str("""
+    ......
+    ......
+    ......
+    """)
 
-    pac_man = PacMan((1, 1))
+    pac_man = PacMan((1, 1), maze)
 
     game = Game(maze, pac_man)
 
