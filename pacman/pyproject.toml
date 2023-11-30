@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "pacman"
+version = "0.1.0"
+description = ""
+authors = ["Felipe <felipe.melo@luizalabs.com>"]
+readme = "README.md"
+packages = [{include = "pacman", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+autopep8 = "^2.0.4"
+rope = "^1.11.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
