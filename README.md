@@ -4,6 +4,12 @@
 
 Este projeto é uma implementação do jogo Pac-Man em uma interface de linha de comando (CLI). O jogo é controlado usando as teclas do teclado.
 
+
+
+https://github.com/felipefrmelo/pac-man/assets/41879172/3a1dda42-01c3-46d5-8501-b61f1f7cb246
+
+
+
 ## Recursos:
 
 - Jogabilidade clássica de Pac-Man
