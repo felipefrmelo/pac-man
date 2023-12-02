@@ -8,6 +8,10 @@ packages = [{include = "pacman", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
+pynput = "^1.7.6"
+
+[tool.poetry.scripts]
+cli = "pacman.cli:main"
 
 
 [tool.poetry.group.dev.dependencies]

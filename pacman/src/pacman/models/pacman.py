@@ -1,30 +1,24 @@
 
-from typing import Protocol
-
-from pacman.models.maze import Maze
 from pacman.models.position import Position, Direction
 
 
-class Subscriber(Protocol):
+class PacMan:
 
-    def update(self, direction: Direction):
-        ...
-
-
-class PacMan(Subscriber):
-
-    def __init__(self, position: tuple[int, int], maze: Maze) -> None:
+    def __init__(self, position: tuple[int, int] | Position) -> None:
         self.position = Position(*position)
         self.lives = 3
         self.direction = Direction.RIGHT
-        self.maze = maze
 
     def move(self):
 
-        new_position = self.position.get(self.direction)
-
-        if self.maze.can_move(new_position):
-            self.position = new_position
+        self.position = self.next_position
 
     def update(self, direction: Direction):
         self.direction = direction
+
+    @property
+    def next_position(self):
+        return self.position.get(self.direction)
+
+    def __str__(self):
+        return 'p'

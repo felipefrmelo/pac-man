@@ -5,20 +5,26 @@ from pacman.models.position import Position
 
 @dataclass
 class Cell:
-    pass
+
+    def __eq__(self, other):
+        return isinstance(self, other.__class__)
 
 
 class Wall(Cell):
 
-    pass
+    def __str__(self):
+        return 'w'
 
 
 class Fruit(Cell):
-    pass
+
+    def __str__(self):
+        return 'f'
 
 
 class Empty(Cell):
-    pass
+    def __str__(self):
+        return '.'
 
 
 class Maze:
@@ -51,5 +57,16 @@ class Maze:
         return Maze._cell_map[char]()
 
     def can_move(self, position: Position) -> bool:
+        return self.get_cell(position) != Wall()
+
+    def get_cell(self, position: Position) -> Cell:
         row, col = position
-        return self.cells[row][col] != Wall()
+        return self.cells[row][col]
+
+    def update(self, position: Position, cell: Cell):
+        row, col = position
+        self.cells[row][col] = cell
+
+    @property
+    def no_fruits_left(self):
+        return len([cell for row in self.cells for cell in row if isinstance(cell, Fruit)]) == 0

@@ -1,20 +1,12 @@
 import pytest
 from pacman.models.pacman import Direction, PacMan
-from pacman.models.maze import Maze
 from pacman.models.position import Position
 
 
 @pytest.fixture
 def pac_man():
 
-    maze = Maze.from_str("""
-    ......
-    ......
-    ......
-    ......
-    ......
-    """)
-    return PacMan((1, 1), maze)
+    return PacMan((1, 1))
 
 
 def test_init_pacman(pac_man: PacMan):
@@ -60,16 +52,3 @@ def test_pacman_move(pac_man: PacMan, direction: Direction, expected_position):
     pac_man.move()
 
     assert pac_man.position == Position(*expected_position)
-
-
-def test_pacman_does_not_move_to_wall():
-    maze = Maze.from_str("""
-                     www
-                     w.w
-                     www
-                """)
-    pac_man = PacMan((1, 1), maze)
-
-    pac_man.move()
-
-    assert pac_man.position == Position(1, 1)
