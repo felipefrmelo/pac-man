@@ -88,11 +88,11 @@ class PresenterCli:
             print("".join(row))
 
     def print_game_over(self, left_padding):
-        print(" " * 10)
+        print(" " * left_padding, end="")
         print("Game Over")
 
     def print_you_win(self, left_padding):
-        print(" " * left_padding)
+        print(" " * left_padding, end="")
         print("You Win")
 
 
