@@ -127,7 +127,7 @@ def main():
 
     ListenerInput(pac_man).start()
 
-    for ghost in [pac_man, *ghosts]:
+    for ghost in ghosts:
         RandomInput(ghost).start()
 
     controller.run()
