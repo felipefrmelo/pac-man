@@ -1,6 +1,6 @@
 import pytest
-from pacman.models.pacman import Direction, PacMan
-from pacman.models.position import Position
+from pacman.models.pacman import PacMan
+from pacman.models.position import Position, Direction
 
 
 @pytest.fixture
@@ -11,7 +11,6 @@ def pac_man():
 
 def test_init_pacman(pac_man: PacMan):
 
-    assert pac_man.lives == 3
     assert pac_man.direction == Direction.RIGHT
     assert pac_man.position == Position(1, 1)
 

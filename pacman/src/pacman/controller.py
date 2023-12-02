@@ -14,6 +14,7 @@ class Timer(Protocol):
 class GameState:
     score: int
     won: bool
+    life: int
     maze: list[list[str]]
 
     @property
@@ -43,6 +44,7 @@ class Controller:
             self.game.next_frame()
             self.presenter.present(GameState(
                 score=self.game.score,
+                life=self.game.life,
                 won=self.game.won,
                 maze=self.game.to_list()
             ))

@@ -101,10 +101,13 @@ def test_presentation_is_called_correcty(controller: Controller):
     with pytest.raises(KeyboardInterrupt):
         controller.run()
 
-    expected = GameState(score=0, won=False, maze=[['w', 'w', 'w', 'w', 'w', 'w'],
-                                                   ['w', '.', 'p', '.', '.', 'w'],
-                                                   ['w', '.', 'f', '.', '.', 'w'],
-                                                   ['w', '.', '.', '.', '.', 'w'],
-                                                   ['w', 'w', 'w', 'w', 'w', 'w']])
+    expected = GameState(score=0, life=3, won=False, maze=[['w', 'w', 'w', 'w', 'w', 'w'],
+                                                           ['w', '.', 'p',
+                                                               '.', '.', 'w'],
+                                                           ['w', '.', 'f',
+                                                               '.', '.', 'w'],
+                                                           ['w', '.', '.',
+                                                               '.', '.', 'w'],
+                                                           ['w', 'w', 'w', 'w', 'w', 'w']])
 
     assert controller.presenter.is_called_with == expected
