@@ -1,6 +1,23 @@
+from dataclasses import dataclass
 from pacman.models.ghost import Ghost
 from pacman.models.maze import Empty, Fruit, Maze
 from pacman.models.pacman import PacMan
+
+
+@dataclass
+class GameState:
+    score: int
+    won: bool
+    life: int
+    maze: list[list[str]]
+
+    @property
+    def height(self) -> int:
+        return len(self.maze)
+
+    @property
+    def width(self) -> int:
+        return len(self.maze[0])
 
 
 class Game:
@@ -19,10 +36,11 @@ class Game:
         self.move_pac_man()
         self.move_ghosts()
 
-        for ghost in self.ghosts:
-            if ghost.position == self.pac_man.position:
-                self.life -= 1
-                break
+        self.check_colision()
+
+    def check_colision(self):
+        if self.pac_man.position in [ghost.position for ghost in self.ghosts]:
+            self.life -= 1
 
     def move_ghosts(self) -> None:
         for ghost in self.ghosts:
@@ -30,14 +48,16 @@ class Game:
                 ghost.move()
 
     def move_pac_man(self):
-        if self.maze.can_move(self.pac_man.next_position):
-            self.pac_man.move()
-            current_cell = self.maze.get_cell(self.pac_man.position)
+        if not self.maze.can_move(self.pac_man.next_position):
+            return
 
-            if current_cell == Fruit():
-                self.maze.update(self.pac_man.position, Empty())
+        self.pac_man.move()
+        current_cell = self.maze.get_cell(self.pac_man.position)
 
-                self.score += 1
+        if current_cell == Fruit():
+            self.maze.update(self.pac_man.position, Empty())
+
+            self.score += 1
 
     @property
     def won(self) -> bool:
@@ -52,3 +72,11 @@ class Game:
             row, col = ghost.position
             result[row][col] = str(ghost)
         return result
+
+    def to_game_state(self) -> GameState:
+        return GameState(
+            score=self.score,
+            life=self.life,
+            maze=self.to_list(),
+            won=self.won,
+        )
